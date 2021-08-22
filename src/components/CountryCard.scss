@@ -1,0 +1,17 @@
+.country {
+    &-img {
+      @media(min-width:768px){
+        height: 9rem;
+      overflow: clip;
+      }
+      
+    }
+    &-subtitle {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+  }
+  .list-group-item {
+    border: none;
+    padding: 0;
+  }

@@ -1,5 +1,6 @@
 {
   "name": "countries",
+  "homepage": "https://c-healey.github.io/countries",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +11,9 @@
     "@types/node": "^12.20.19",
     "@types/react": "^17.0.18",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.1.0",
+    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -17,6 +21,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages  -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
