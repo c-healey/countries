@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../apis/countries";
 import { useSearchContext } from "../context/SearchContext";
-import {CountriesContext} from '../context/CountriesContext';
+import { CountriesContext } from "../context/CountriesContext";
 
 interface SearchInputProps {
   styleClass?: string;
@@ -15,7 +15,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 }) => {
   const { searchTerm, setSearchTerm } = useSearchContext();
   const [debounceTerm, setDebounceTerm] = useState(searchTerm);
-  const { setCountries} = useContext(CountriesContext)
+  const { setCountries } = useContext(CountriesContext);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -28,22 +28,17 @@ const SearchInput: React.FC<SearchInputProps> = ({
     const getCountries = async () => {
       try {
         const { data } = await axios.get(
-          `https://restcountries.eu/rest/v2${
-            debounceTerm ? "/name/" + debounceTerm : "/all"
-          }`
+          `${debounceTerm ? "/name/" + debounceTerm : "/all"}`
         );
 
-        // console.log('DATA = ', data);
         setCountries(data);
-        // console.log('countries ', countries);
-        
       } catch (err) {
         console.log(err);
       }
     };
 
     getCountries();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceTerm]);
 
   return (

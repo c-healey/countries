@@ -1,63 +1,75 @@
 import { useContext, useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "../apis/countries";
 
-import {CountriesContext} from '../context/CountriesContext';
+import { CountriesContext } from "../context/CountriesContext";
 import "./Filter.scss";
+const filterRegions = [
+  { value: "EU", label: "European Union" },
+  { value: "EFTA", label: "European Free Trade Association" },
+  { value: "CARICOM", label: "Caribbean Community" },
+  { value: "PA", label: "Pacific Alliance" },
+  { value: "AU", label: "African Union" },
+  { value: "USAN", label: "Union of South American Nations" },
+  { value: "EEU", label: "Eurasian Economic Union" },
+  { value: "AL", label: "Arab League" },
+  { value: "ASEAN", label: "Association of Southeast Asian Nations" },
+  { value: "CAIS", label: "Central American Integration System" },
+  { value: "CEFTA", label: "Central European Free Trade Agreement" },
+  { value: "NAFTA", label: "North American Free Trade Agreement" },
+  { value: "SAARC", label: "South Asian Association for Regional Cooperation" },
+];
 const Filter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const [region, setRegion] = useState('');
-  const { setCountries} = useContext(CountriesContext);
+  const [region, setRegion] = useState("");
+  const { setCountries } = useContext(CountriesContext);
   useEffect(() => {
     const getCountries = async () => {
       try {
-        const { data } = await axios.get(
-          `https://restcountries.eu/rest/v2/region/${
-            region
-          }`
-        );
+        const { data } = await axios.get(`/regionalbloc/${region}`);
 
-        // console.log('DATA = ', data);
         setCountries(data);
-        // console.log('countries ', countries);
-        
       } catch (err) {
         console.log(err);
       }
     };
-    if (region.length){
-        getCountries();
+    if (region.length) {
+      getCountries();
     }
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region]);
- 
+
   const handleRegionClick = (e: any) => {
-      
-    console.log("CLICK TARGET", e.target.innerHTML);
     setShowFilters(!showFilters);
-    setRegion(e.target.innerHTML);
+    setRegion(e.target.dataset.value);
     e.stopPropagation();
   };
   return (
     <div className="filter mb-3 ">
       <div
         className="btn  filter-btn shadow ms-auto d-flex justify-content-between"
-        onClick={()=>setShowFilters(!showFilters)}
-
+        onClick={() => setShowFilters(!showFilters)}
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <span>Filter by Region</span><i className={`bi bi-chevron-${showFilters?'up':'down'}`}></i> 
+        <span>Filter by Region</span>
+        <i className={`bi bi-chevron-${showFilters ? "up" : "down"}`}></i>
       </div>
       <div
         className={`dropdown-menu ${showFilters ? "show" : ""}`}
         onClick={(e) => handleRegionClick(e)}
       >
-        <div className="dropdown-item">Africa</div>
-        <div className="dropdown-item">America</div>
-        <div className="dropdown-item">Asia</div>
-        <div className="dropdown-item">Europe</div>
-        <div className="dropdown-item">Oceania</div>
+        {filterRegions.map((item, idx) => {
+          return (
+            <div
+              key={`filter-${idx}`}
+              className="dropdown-item"
+              data-value={item.value}
+            >
+              {item.label}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -50,8 +50,10 @@ $defaultFontFamily: "Nunito Sans", sans-serif;
 // - [Ionicons](https://ionicons.com)
 
 .App {
-  // text-align: center;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  width: 100vw;
   font-family: $defaultFontFamily;
   font-size: 14px;
   h1 {
@@ -62,35 +64,71 @@ $defaultFontFamily: "Nunito Sans", sans-serif;
   h5 {
     font-weight: 600;
   }
-  nav {
-    padding: 1.25rem 0;
+
+  a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+      color: $veryDarkestBlue;
+    }
+  }
+
+  ul li {
+    position: relative;
+    display: block;
+    padding: 0 0 0.5rem;
+    // color: #212529;
+    text-decoration: none;
+    // /* background-color: #fff; */
+    // /* border: 1px solid rgba(0,0,0,.125); */
   }
   main .input-group-text,
   main .input {
     padding: 0.75rem;
   }
-  nav
- 
-  {
-    margin-bottom: 3.5rem;
+  .Card .Card-header {
+    padding: 0;
+    height: 22rem;
+    overflow: hidden;
+    @media (min-width: 768px) {
+      height: 10rem;
+    }
+    & img {
+      max-width: 100%;
+      // max-height: 100%;
+    }
   }
 
-  .dark-mode {
+  &.dark-mode {
     background-color: $veryDarkBlue;
-    color:$white;
+    color: $white;
+    nav {
+      background-color: $darkBlue;
+    }
 
-    main {
-      .card,
-      .card-body .list-group-item,
-      nav,
+    .btn {
+      background-color: $darkBlue;
+      a {
+        color: white;
+      }
+    }
+
+    & main {
+      a,
+      .Card,
+      .Card-body .list-group-item,
       .input-group-text,
       .search-input,
-      .filter {
+      .filter-btn,
+      .dropdown-menu,
+      .dropdown-item {
         background-color: $darkBlue;
-        color: $white;
-       
+        color: $white !important;
       }
-      .search-input, .input-group-text {
+      .search-input,
+      .input-group-text {
         border: 1px solid $darkBlue;
       }
       .search-input::placeholder {
@@ -98,27 +136,45 @@ $defaultFontFamily: "Nunito Sans", sans-serif;
       }
     }
   }
-  .light-mode {
+  &.light-mode {
     background-color: $lightGray;
     color: $veryDarkestBlue;
- 
+    nav {
+      background-color: $lightGray;
+    }
+    .Card-header {
+      padding: 0;
+    }
 
-      main {
-        .card,
-        .card-body .list-group-item,
-        nav,
-        .input-group-text,
-        .search-input {
-          background-color: $white;
-          color: $veryDarkestBlue;
-        }
-        .search-input, .input-group-text {
-          border: 1px solid $white;
-        }
-        .search-input::placeholder {
-          color: $darkGray;
+    main {
+      & div div a .Card .Card-header {
+        padding: 0;
+
+        img {
+          @media (min-width: 768px) {
+            height: 10rem;
+            overflow: clip;
+          }
         }
       }
+      .Card,
+      .Card-body .list-group-item,
+      .input-group-text,
+      .search-input {
+        background-color: $white;
+        color: $veryDarkestBlue;
+      }
+      .search-input,
+      .input-group-text {
+        border: 1px solid $white;
+      }
+      .search-input::placeholder {
+        color: $darkGray;
+      }
+      .dropdown-item.active,
+      .dropdown-item:active {
+        background-color: grey;
+      }
     }
-  
+  }
 }

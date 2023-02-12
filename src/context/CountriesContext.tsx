@@ -45,89 +45,103 @@ type Country = {
   regionalBlocs: Array<{
     acronym: string;
     name: string;
-    otherAcronyms:  Array<string>;
+    otherAcronyms: Array<string>;
     otherNames: Array<string>;
   }>;
   cioc: string;
 };
-const initialValue = {
-    countries:[
+const countryTemplate = {
+  name: "",
+  topLevelDomain: [""],
+  alpha2Code: "",
+  alpha3Code: "",
+  callingCodes: [""],
+  capital: "",
+  altSpellings: [""],
+  region: "",
+  subregion: "",
+  population: 0,
+  latlng: [0, 0],
+  demonym: "",
+  area: 0,
+  gini: 0,
+  timezones: [""],
+  borders: [""],
+  nativeName: "",
+  numericCode: "",
+  currencies: [
     {
-        name: '',
-        topLevelDomain: [''],
-        alpha2Code: '',
-        alpha3Code: '',
-        callingCodes: [''],
-        capital: '',
-        altSpellings: [''],
-        region: '',
-        subregion: '',
-        population: 0,
-        latlng: [0,0],
-        demonym: '',
-        area: 0,
-        gini: 0,
-        timezones: [''],
-        borders: [''],
-        nativeName: '',
-        numericCode: '',
-        currencies: [{
-          code: '',
-          name: '',
-          symbol: '',
-        }],
-        languages: [{
-          iso639_1: '',
-          iso639_2: '',
-          name: '',
-          nativeName: '',
-        }],
-        translations: {
-          de: '',
-          es: '',
-          fr: '',
-          ja: '',
-          it: '',
-          br: '',
-          pt: '',
-          nl: '',
-          hr: '',
-          fa: '',
-        },
-        flag: '',
-        regionalBlocs: [{
-          acronym: '',
-          name: '',
-          otherAcronyms: [''],
-          otherNames: [''],
-        }],
-        cioc: '',
-      }
-],
-setCountries:()=>{}
-}
+      code: "",
+      name: "",
+      symbol: "",
+    },
+  ],
+  languages: [
+    {
+      iso639_1: "",
+      iso639_2: "",
+      name: "",
+      nativeName: "",
+    },
+  ],
+  translations: {
+    de: "",
+    es: "",
+    fr: "",
+    ja: "",
+    it: "",
+    br: "",
+    pt: "",
+    nl: "",
+    hr: "",
+    fa: "",
+  },
+  flag: "",
+  regionalBlocs: [
+    {
+      acronym: "",
+      name: "",
+      otherAcronyms: [""],
+      otherNames: [""],
+    },
+  ],
+  cioc: "",
+};
+
+const initialValue = {
+  countries: [countryTemplate],
+  setCountries: () => {},
+  countryDetail: countryTemplate,
+  setCountryDetail: () => {},
+};
 interface CountriesContextInt {
   countries: Country[];
   setCountries: React.Dispatch<React.SetStateAction<Country[]>>;
+  countryDetail: Country;
+  setCountryDetail: React.Dispatch<React.SetStateAction<Country>>;
 }
 
-export const CountriesContext = React.createContext<
-  CountriesContextInt
->(initialValue);
+export const CountriesContext =
+  React.createContext<CountriesContextInt>(initialValue);
 
-
-
-export const CountriesProvider: React.FC = (props) => {
+export const CountriesProvider: React.FC<{ children: any }> = ({
+  children,
+}) => {
   const [countries, setCountries] = useState(initialValue.countries);
+  const [countryDetail, setCountryDetail] = useState(
+    initialValue.countryDetail
+  );
 
   return (
     <CountriesContext.Provider
       value={{
         countries: countries,
         setCountries: setCountries,
+        countryDetail: countryDetail,
+        setCountryDetail: setCountryDetail,
       }}
     >
-      {props.children}
+      {children}
     </CountriesContext.Provider>
   );
 };
