@@ -23,42 +23,43 @@ const Home = () => {
         </div>
       </div>
       <div className="row g-5">
-        {countries.map((country, i) => (
-          <div
-            key={i}
-            className="col-md-3 country-row-gap"
-            onClick={() => setCountryDetail(country)}
-          >
-            <Link to="./country">
-              <Card
-                header={
-                  <img
-                    src={country.flag}
-                    className="card-img-top"
-                    alt={`flag of ${country.name}`}
-                  />
-                }
-              >
-                <h5 className="card-title mb-3">{country.name}</h5>
+        {countries &&
+          countries.map((country, i) => (
+            <div
+              key={i}
+              className="col-md-3 country-row-gap"
+              onClick={() => setCountryDetail(country)}
+            >
+              <Link to="./country">
+                <Card
+                  header={
+                    <img
+                      src={country.flag}
+                      className="card-img-top"
+                      alt={`flag of ${country.name}`}
+                    />
+                  }
+                >
+                  <h5 className="card-title mb-3">{country.name}</h5>
 
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item ">
-                    <span className="country-subtitle">Population:</span>
-                    {country.population}
-                  </li>
-                  <li className="list-group-item">
-                    <span className="country-subtitle">Region:</span>
-                    {country.region}
-                  </li>
-                  <li className="list-group-item">
-                    <span className="country-subtitle">Capital:</span>
-                    {country.capital}
-                  </li>
-                </ul>
-              </Card>
-            </Link>
-          </div>
-        ))}
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item ">
+                      <span className="country-subtitle">Population:</span>
+                      {country.population}
+                    </li>
+                    <li className="list-group-item">
+                      <span className="country-subtitle">Region:</span>
+                      {country.region}
+                    </li>
+                    <li className="list-group-item">
+                      <span className="country-subtitle">Capital:</span>
+                      {country.capital}
+                    </li>
+                  </ul>
+                </Card>
+              </Link>
+            </div>
+          ))}
       </div>
     </main>
   );

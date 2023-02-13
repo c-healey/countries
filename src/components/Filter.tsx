@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import axios from "../apis/countries";
+import axios from "axios";
+import { BASE_URL } from "../constants/appConstants";
 
 import { CountriesContext } from "../context/CountriesContext";
 import "./Filter.scss";
@@ -20,19 +21,19 @@ const filterRegions = [
 ];
 const Filter = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState<string>();
   const { setCountries } = useContext(CountriesContext);
   useEffect(() => {
     const getCountries = async () => {
       try {
-        const { data } = await axios.get(`/regionalbloc/${region}`);
+        const { data } = await axios.get(`${BASE_URL}/regionalbloc/${region}`);
 
         setCountries(data);
       } catch (err) {
         console.log(err);
       }
     };
-    if (region.length) {
+    if (region) {
       getCountries();
     }
 

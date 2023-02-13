@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ModeContext } from "./context/ModeContext";
-import axios from "./apis/countries";
+import axios from "axios";
+import { BASE_URL } from "./constants/appConstants";
 
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -17,11 +18,12 @@ const App = () => {
   const { setCountries } = useContext(CountriesContext);
 
   const getCountries = async () => {
-    const { data } = await axios.get(`/all`);
+    const { data } = await axios.get(`${BASE_URL}/all`);
     if (data) setCountries(data);
   };
   useEffect(() => {
     getCountries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

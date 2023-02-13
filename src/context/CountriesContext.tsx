@@ -121,15 +121,20 @@ interface CountriesContextInt {
   setCountryDetail: React.Dispatch<React.SetStateAction<Country>>;
 }
 
-export const CountriesContext =
-  React.createContext<CountriesContextInt>(initialValue);
+export const CountriesContext = React.createContext<CountriesContextInt>(
+  {} as CountriesContextInt
+);
 
-export const CountriesProvider: React.FC<{ children: any }> = ({
-  children,
-}) => {
-  const [countries, setCountries] = useState(initialValue.countries);
-  const [countryDetail, setCountryDetail] = useState(
-    initialValue.countryDetail
+export const CountriesProvider: React.FC<{
+  countryList?: Array<Country>;
+  country?: Country;
+  children: any;
+}> = ({ countryList, country, children }) => {
+  const [countries, setCountries] = useState<Array<Country>>(
+    countryList || ([] as Array<Country>)
+  );
+  const [countryDetail, setCountryDetail] = useState<Country>(
+    country || ({} as Country)
   );
 
   return (

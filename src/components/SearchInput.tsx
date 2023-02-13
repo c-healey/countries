@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "../apis/countries";
+import axios from "axios";
 import { useSearchContext } from "../context/SearchContext";
 import { CountriesContext } from "../context/CountriesContext";
+import { BASE_URL } from "../constants/appConstants";
 
 interface SearchInputProps {
-  styleClass?: string;
   id: string;
+  styleClass?: string;
   placeholder?: string;
 }
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -28,7 +29,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
     const getCountries = async () => {
       try {
         const { data } = await axios.get(
-          `${debounceTerm ? "/name/" + debounceTerm : "/all"}`
+          `${BASE_URL}${debounceTerm ? "/name/" + debounceTerm : "/all"}`
         );
 
         setCountries(data);
